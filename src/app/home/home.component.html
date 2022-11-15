@@ -1,29 +1,51 @@
-<div style="position: fixed; top: 0; right: 0; z-index: 1; margin: 1%;" data-bs-toggle="modal"
-    data-bs-target="#exampleModal">
-    <button type="button" class="btn btn-danger"><i class="fa-solid fa-gear"></i>Setting</button>
+<div style="position: fixed; top: 0; right: 0; z-index: 1; margin: 1%;">
+    <div class="row">
+        <div class="col" data-bs-toggle="modal" data-bs-target="#exampleModalSetting">
+            <button (click)="selectSetting()" type="button" class="btn btn-warning rounded-circle shadow"
+                style="padding: 10px;"><img src="../../assets/icon/gear.png" class="img-setting"></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" data-bs-toggle="modal" data-bs-target="#exampleModalNews">
+            <button (click)="selectNews()" type="button" class="btn btn-warning rounded-circle shadow mt-1"
+                style="padding: 10px;"><img src="../../assets/icon/newspaper.png" class="img-setting"></button>
+        </div>
+    </div>
+</div>
+
+<div class="position-fixed bottom-0 fw-bold w-100">
+    <div class="row">
+        <div class="col text-white">
+            <marquee class="align-middle" direction="left"><span style="font-size: 2em;">{{ news }}</span></marquee>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-secondary ms-2">SMART-SMD VERSION 1.0 Copyright © by A I Smart Tech</div>
+    </div>
 </div>
 <div class="position-fixed"
-    style="width: 100%; height: 100%; padding: 0 10%; display: grid; align-items: center; justify-self: center; background-color: rgba(0, 47, 255, 0.318);">
+    style="width: 100%; height: 100%; padding: 0 10%; display: grid; align-items: center; justify-self: center;">
     <div class="row">
         <div class="col-12 text-center mb-3">
-            <span style="font-size: 3em; font-weight: bold; color: bisque;">กรอกคิวช่องที่ {{station}}</span>
+            <span style="font-size: 2.2em; font-weight: bold; color: rgb(252, 234, 174);">กรอกคิวช่องจ่ายที่
+                {{ stationTemplate }}</span>
             <!-- <span style="font-size: 4em; font-weight: bold; color: bisque;">{{total}}</span> -->
         </div>
         <div class="row">
             <div class="col-3 my-3 text-end" style="display: grid; align-items: center;">
-                <span style="font-size: 2.5em; font-weight: bold; color: bisque;">จาก</span>
+                <span style="font-size: 2.5em; font-weight: bold; color: rgb(252, 234, 174);">จาก</span>
             </div>
             <div class="col-9 my-3">
-                <input [(ngModel)]="left" class="form-control text-center" type="number" min="0" max="9999"
+                <input [(ngModel)]="left" class="form-control text-center py-0" type="number" min="0" max="9999"
                     style="font-size: 2.5em; font-weight: bold;">
             </div>
         </div>
         <div class="row">
             <div class="col-3 my-3 text-end" style="display: grid; align-items: center;">
-                <span style="font-size: 2.5em; font-weight: bold; color: bisque;">ถึง</span>
+                <span style="font-size: 2.5em; font-weight: bold; color: rgb(252, 234, 174);">ถึง</span>
             </div>
             <div class="col-9 my-3">
-                <input [(ngModel)]="right" class="form-control text-center" type="number" min="0" max="9999"
+                <input [(ngModel)]="right" class="form-control text-center py-0" type="number" min="0" max="9999"
                     style="font-size: 2.5em; font-weight: bold;">
             </div>
         </div>
@@ -32,10 +54,12 @@
         </div> -->
         <div class="row">
             <div class="col-3 my-3 text-end" style="display: grid; align-items: center;">
-                <span style="font-size: 2.5em; font-weight: bold; color: bisque;">ช่องที่</span>
+                <span style="font-size: 2.5em; font-weight: bold; color: rgb(252, 234, 174);">ช่องจ่ายที่</span>
             </div>
-            <div class="col-9 my-3 text-center" style="font-size: 2.5em; display: grid; align-items: center;">
-                <select [(ngModel)]="range" (click)="checks()" class="form-select text-center" aria-label="Default select example">
+            <div class="col-9 my-3 text-center" style="display: grid; align-items: center;">
+                <select [(ngModel)]="stationTemplate" (click)="checkStation()"
+                    style="font-size: 2.5em !important; padding: 0;" class="form-select text-center fw-bold"
+                    aria-label="Default select example">
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
@@ -47,48 +71,102 @@
         </div>
         <div class="row">
             <div class="col-3 my-3 text-end" style="display: grid; align-items: center;">
-                <span style="font-size: 3em; font-weight: bold; color: bisque;"></span>
+                <!-- <span style="font-size: 3em; font-weight: bold; color: rgb(252, 234, 174);"></span> -->
             </div>
             <div class="col-9 mt-3 text-center">
-                <button (click)="check()" type="button" class="btn btn-success btn-lg form-control"
-                    style="font-size: 2em; font-weight: bold;">เรียกคิว</button>
+                <div class="row">
+                    <div class="col">
+                        <button (click)="pushQue()" type="button" class="btn btn-success btn-sm form-control"
+                            style="font-size: 1.5em; font-weight: bold;">เรียกคิว</button>
+                    </div>
+                    <div class="col">
+                        <button (click)="clearQue()" type="button" class="btn btn-warning btn-sm form-control"
+                            style="font-size: 1.5em; font-weight: bold;">เครีย</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal setting -->
+<div class="modal fade" id="exampleModalSetting" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Setting</h5>
+        <div class="modal-content fw-bold">
+            <div class="modal-header py-0">
+                <img src="../../assets/icon/gear.png" class="img-setting">
+                <h5 class="modal-title fw-bold ms-1" style="font-size: 2.5em;" id="exampleModalLabel">ตั้งค่า</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <input [(ngModel)]="url1e" type="text" value="{{url1}}">
+            <div class="modal-body" style="font-size: 1.5em;">
+                <div class="row">
+                    <div class="col-3 text-end">IP Address</div>
+                    <div class="col"><input class="form-control fw-bold" style="font-size: 1em;" [(ngModel)]="hostEdit"
+                            type="text" value="{{hostTemplate}}"></div>
+                </div>
             </div>
-            <div class="modal-body">
-                <input [(ngModel)]="port1e" type="text" value="{{port1}}">
+            <div class="modal-body" style="font-size: 1.5em;">
+                <div class="row">
+                    <div class="col-3 text-end">Port</div>
+                    <div class="col"><input class="form-control fw-bold" style="font-size: 1em;" [(ngModel)]="portEdit"
+                            type="text" value="{{portTemplate}}"></div>
+                </div>
+
             </div>
             <!-- <div class="modal-body">
                 <input [(ngModel)]="station" type="text" value="{{station}}">
             </div> -->
-            <div class="modal-body">
-                <input [(ngModel)]="statione" type="text" value="{{station}}">
-                <!-- <select aria-label=".form-select-lg example">
-                    <option selected>เลือกสเตชั่น</option>
-                    <option value="1" *ngIf="station = 1; else elseBlock">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select> -->
+            <div class="modal-body" style="font-size: 1.5em;">
+                <div class="row">
+                    <div class="col-3 text-end">Station</div>
+                    <!-- <div class="col"><input class="form-control fw-bold" style="font-size: 1em;" [(ngModel)]="statione" type="text" value="{{station}}"></div> -->
+                    <div class="col">
+                        <select [(ngModel)]="stationEdit" class="form-control fw-bold" style="font-size: 1em;"
+                            aria-label=".form-select-lg example">
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                        </select>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button (click)="onSubmit()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save
-                    changes</button>
+                <button type="button" class="btn btn-secondary" style="font-size: 1.2em;"
+                    data-bs-dismiss="modal">Close</button>
+                <button (click)="onSaveSettting()" type="button" class="btn btn-primary" style="font-size: 1.2em;"
+                    data-bs-dismiss="modal">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal news -->
+<div class="modal fade" id="exampleModalNews" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content fw-bold">
+            <div class="modal-header py-0">
+                <img src="../../assets/icon/newspaper.png" class="img-setting">
+                <h5 class="modal-title fw-bold ms-1" style="font-size: 2.5em;" id="exampleModalLabel">ประกาศ</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="font-size: 1.5em;">
+                <div class="row">
+                    <!-- <div class="col-3 text-end">IP Address</div>
+                    <div class="col"><input class="form-control fw-bold" style="font-size: 1em;" [(ngModel)]="url1e"
+                            type="text" value="{{url1}}"></div> -->
+                    <div class="col">
+                        <textarea [(ngModel)]="newsEdit" class="form-control" style="font-size: 1em;" cols="30" rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" style="font-size: 1.2em;"
+                    data-bs-dismiss="modal">Close</button>
+                <button (click)="onSaveNews()" type="button" class="btn btn-primary" style="font-size: 1.2em;"
+                    data-bs-dismiss="modal">Save Changes</button>
             </div>
         </div>
     </div>

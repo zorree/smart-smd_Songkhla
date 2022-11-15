@@ -1,8 +1,22 @@
-input[type=range][orient=vertical]
+.img-setting {
+    width: 30px;
+    height: 30px;
+}
+
+/* input[type=range][orient=vertical]
 {
-    writing-mode: bt-lr; /* IE */
-    -webkit-appearance: slider-vertical; /* Chromium */
+    writing-mode: bt-lr;
+    -webkit-appearance: slider-vertical;
     width: 10px;
     height: 100%;
     padding: 0 0 0 15px;
-}
+} */
+
+/* input[type=range][orient=vertical]
+{
+    writing-mode: bt-lr; /* IE /
+    -webkit-appearance: slider-vertical; /* Chromium /
+    width: 10px;
+    height: 100%;
+    padding: 0 0 0 15px;
+} */
